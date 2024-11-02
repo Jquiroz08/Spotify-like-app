@@ -12,5 +12,61 @@
     "year": "2024",
     "genre": "Electronic",
     "fileName": "Survival Instinct.wav"
+  },
+  {
+    "name": "Contact",
+    "artist": "mindthings",
+    "year": "2012",
+    "genre": "Electronic",
+    "fileName": "Contact.wav"
+  },
+  {
+    "name": "Sentry On Patrol",
+    "artist": "The New Lines",
+    "year": "2015",
+    "genre": "Rock",
+    "fileName": "Sentry On Patrol.wav"
+  },
+  {
+    "name": "Diminution",
+    "artist": "Jon Shuemaker",
+    "year": "2024",
+    "genre": "Rock",
+    "fileName": "Diminution.wav"
+  },
+  {
+    "name": "Lonely Cowboys",
+    "artist": "Simon Matthewson",
+    "year": "2024",
+    "genre": "Pop",
+    "fileName": "Lonely Cowboys.wav"
+  },
+  {
+    "name": "Zilch",
+    "artist": "Bored With Four",
+    "year": "2013",
+    "genre": "Pop",
+    "fileName": "Zilch.wav"
+  },
+  {
+    "name": "Woods",
+    "artist": "Hawkin",
+    "year": "2015",
+    "genre": "Instrumental",
+    "fileName": "Woods.wav"
+  },
+  {
+    "name": "Unrequited Love",
+    "artist": "Squire Tuck",
+    "year": "2015",
+    "genre": "Instrumental",
+    "fileName": "Unrequited Love.wav"
+  },
+  {
+    "name": "The Other Side",
+    "artist": "Sandro Marinoni",
+    "year": "2009",
+    "genre": "Jazz",
+    "fileName": "The Other Side.wav"
   }
 ]
