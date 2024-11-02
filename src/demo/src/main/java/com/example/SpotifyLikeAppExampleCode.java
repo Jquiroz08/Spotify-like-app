@@ -168,6 +168,13 @@ public class SpotifyLikeAppExampleCode {
       e.printStackTrace();
     }
     recentlyPlayed.add(library[i].name() + " by " + library[i].artist());
+    System.out.println("---------------------");
+    System.out.println("Currently Playing: ");
+    System.out.println("Song name: " + library[i].name());
+    System.out.println("Artist name: " + library[i].artist());
+    System.out.println("Genre: " + library[i].genre());
+    System.out.println("Release Date: " + library[i].year());
+    System.out.println("File path: " + library[i].fileName());
   }
 
   // read the audio library of music
