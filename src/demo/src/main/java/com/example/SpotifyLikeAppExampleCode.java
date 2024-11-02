@@ -40,16 +40,17 @@ public class SpotifyLikeAppExampleCode {
   private static String directoryPath =
     "C:\\Users\\josep\\OneDrive\\Desktop\\Git Repo\\Spotify-like-app\\src\\demo\\src\\main\\java\\com\\example\\";
 
-
-
+  // String Array to display "Recently Played" in Home menu
   private static ArrayList<String> recentlyPlayed = new ArrayList<String>();
+
+  // create a scanner for user input
+  private static Scanner input = new Scanner(System.in);
+
   // "main" makes this class a java app that can be executed
   public static void main(final String[] args) {
     // reading audio library from json file
     Song[] library = readAudioLibrary();
 
-    // create a scanner for user input
-    Scanner input = new Scanner(System.in);
 
     String userInput = "";
     while (!userInput.equals("q")) {
@@ -82,6 +83,7 @@ public class SpotifyLikeAppExampleCode {
     System.out.print("Enter q to Quit:");
   }
 
+  // Prints out a list of recently played songs
   public static void home(){
     System.out.println("Recently Played: ");
     for(int i=0; i<recentlyPlayed.size(); i++){
@@ -89,6 +91,7 @@ public class SpotifyLikeAppExampleCode {
     }
   }
   
+  // Searches for song name inputed through Song array and plays it if found
   public static void search(Song[] library){
    System.out.println("Please enter song title");
    Scanner input = new Scanner(System.in);
@@ -98,14 +101,14 @@ public class SpotifyLikeAppExampleCode {
         play(library, i);
         break;
       }
- }
+   }
   }
 
+  // Prints library of songs and plays the user-selected song
   public static void library(Song[] library) {
     for(int i=0; i<library.length; i++){
        System.out.println(i+1 + ": "+ library[i].name() + " by " + library[i].artist());
     }
-
     Scanner input = new Scanner(System.in);
     System.out.println("Please select which song to play");
     int index = input.nextInt();
@@ -167,7 +170,9 @@ public class SpotifyLikeAppExampleCode {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    // Adds song to Recently played list
     recentlyPlayed.add(library[i].name() + " by " + library[i].artist());
+    //Prints information of song when it starts playing
     System.out.println("---------------------");
     System.out.println("Currently Playing: ");
     System.out.println("Song name: " + library[i].name());
