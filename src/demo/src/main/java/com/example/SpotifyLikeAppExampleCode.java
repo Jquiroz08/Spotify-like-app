@@ -40,6 +40,9 @@ public class SpotifyLikeAppExampleCode {
   private static String directoryPath =
     "C:\\Users\\josep\\OneDrive\\Desktop\\Git Repo\\Spotify-like-app\\src\\demo\\src\\main\\java\\com\\example\\";
 
+
+
+  private static ArrayList<String> recentlyPlayed = new ArrayList<String>();
   // "main" makes this class a java app that can be executed
   public static void main(final String[] args) {
     // reading audio library from json file
@@ -74,23 +77,29 @@ public class SpotifyLikeAppExampleCode {
     System.out.println("[H]ome");
     System.out.println("[S]earch by title");
     System.out.println("[L]ibrary");
-    System.out.println("[P]lay");
     System.out.println("[Q]uit");
 
     System.out.println("");
     System.out.print("Enter q to Quit:");
   }
+
+  public static void home(){
+    System.out.println("Recently Played: ");
+    for(int i=0; i<recentlyPlayed.size(); i++){
+      System.out.println(i+1 +": " + recentlyPlayed.get(i));
+    }
+  }
   
   public static void library(Song[] library) {
     for(int i=0; i<library.length; i++){
-      int numbering = i+1;
-       System.out.println(numbering + ": "+ library[i].name() + " by " + library[i].artist());
+       System.out.println(i+1 + ": "+ library[i].name() + " by " + library[i].artist());
     }
 
     Scanner input = new Scanner(System.in);
     System.out.println("Please select which song to play");
     int index = input.nextInt();
     play(library, index-1);
+    recentlyPlayed.add(library[index-1].name() + " by " + library[index-1].artist());
   }
 
   /*
@@ -100,6 +109,7 @@ public class SpotifyLikeAppExampleCode {
     switch (userInput) {
       case "h":
         System.out.println("-->Home<--");
+        home();
         break;
       case "s":
         System.out.println("-->Search by title<--");
@@ -107,9 +117,6 @@ public class SpotifyLikeAppExampleCode {
       case "l":
         System.out.println("-->Library<--");
         library(library);
-        break;
-      case "p":
-        System.out.println("-->Play<--");
         break;
       case "q":
         System.out.println("-->Quit<--");
