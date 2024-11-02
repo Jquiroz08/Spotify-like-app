@@ -78,7 +78,6 @@ public class SpotifyLikeAppExampleCode {
     System.out.println("[S]earch by title");
     System.out.println("[L]ibrary");
     System.out.println("[Q]uit");
-
     System.out.println("");
     System.out.print("Enter q to Quit:");
   }
@@ -90,6 +89,18 @@ public class SpotifyLikeAppExampleCode {
     }
   }
   
+  public static void search(Song[] library){
+   System.out.println("Please enter song title");
+   Scanner input = new Scanner(System.in);
+   String title = input.nextLine();
+   for(int i=0; i<library.length; i++){
+      if(title.equalsIgnoreCase(library[i].name())){
+        play(library, i);
+        break;
+      }
+ }
+  }
+
   public static void library(Song[] library) {
     for(int i=0; i<library.length; i++){
        System.out.println(i+1 + ": "+ library[i].name() + " by " + library[i].artist());
@@ -99,7 +110,6 @@ public class SpotifyLikeAppExampleCode {
     System.out.println("Please select which song to play");
     int index = input.nextInt();
     play(library, index-1);
-    recentlyPlayed.add(library[index-1].name() + " by " + library[index-1].artist());
   }
 
   /*
@@ -113,6 +123,7 @@ public class SpotifyLikeAppExampleCode {
         break;
       case "s":
         System.out.println("-->Search by title<--");
+        search(library);
         break;
       case "l":
         System.out.println("-->Library<--");
@@ -156,6 +167,7 @@ public class SpotifyLikeAppExampleCode {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    recentlyPlayed.add(library[i].name() + " by " + library[i].artist());
   }
 
   // read the audio library of music
