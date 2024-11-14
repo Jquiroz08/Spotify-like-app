@@ -178,7 +178,7 @@ public class SpotifyLikeAppExampleCode {
     
     String userInput = "";
     
-    while (!userInput.equals("H")) {
+    while (!userInput.equals("B")) {
     // Prints information of song when it starts playing
     System.out.println("---------------------");
     System.out.println("Currently Playing: ");
@@ -194,7 +194,9 @@ public class SpotifyLikeAppExampleCode {
     } else{
       System.out.println("[Fa]vorite");
     }
-    System.out.println("[H]ome");
+    System.out.println("[Fo]ward 5 Seconds");
+    System.out.println("[R]ewind 5 Seconds");
+    System.out.println("[B]ack");
     System.out.println("---------------------");
 
     Scanner input = new Scanner(System.in);  
@@ -210,7 +212,15 @@ public class SpotifyLikeAppExampleCode {
         favoriteSongs.remove(Integer.valueOf(index));
         library[i].setFavorite();
         break;
+       
+      case "Fo":
+        audioClip.setMicrosecondPosition(audioClip.getMicrosecondPosition() + 5000000);
+        break;
 
+      case "R":
+        audioClip.setMicrosecondPosition(audioClip.getMicrosecondPosition() - 5000000);
+        break;
+        
       default:
         break;
     }
