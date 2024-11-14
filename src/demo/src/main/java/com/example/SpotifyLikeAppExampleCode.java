@@ -12,40 +12,7 @@ public class SpotifyLikeAppExampleCode {
   // the current audio clip
   private static Clip audioClip;
 
-  /*
-   *** IMPORTANT NOTE FOR ALL STUDENTS ***
-   * 
-   * This next line of code is a "path" that students will need to change in order
-   * to play music on their
-   * computer. The current path is for my laptop, not yours.
-   * 
-   * If students who do not understand whre files are located on their computer or
-   * how paths work on their computer,
-   * should immediately complete the extra credit on "Folders and Directories" in
-   * the canvas modules.
-   * 
-   * Knowing how paths work is fundamental knowledge for using a computer as a
-   * technical person.
-   * 
-   * The play function in this example code plays one song. Once student change
-   * the directoryPath variable properly,
-   * one of the songs should play. Students should implement their own code for
-   * all the functionality in the assignment.
-   * 
-   * Students can use, and find their own music. You do not have to use or listen
-   * to my example music! Have fun!
-   * 
-   * Students who do not know what a path is on their computers, and how to use a
-   * path, are often unable complete
-   * this assignment succesfullly. If this is your situation, please complete the
-   * extra credit on Folders Path,
-   * and Directories. Also, please do google and watch youtube videos if that is
-   * helpful too.
-   * 
-   * Thank you! -Gabriel
-   * 
-   */
-
+  // Current Dirrectory Path
   private static String directoryPath = "C:\\Users\\josep\\OneDrive\\Desktop\\Git Repo\\Spotify-like-app\\src\\demo\\src\\main\\java\\com\\example\\";
 
   // String Array to display "Recently Played" in Home menu
@@ -53,6 +20,9 @@ public class SpotifyLikeAppExampleCode {
 
   // create a scanner for user input
   private static Scanner input = new Scanner(System.in);
+
+  // Array of indices to favorite songs in the library
+  private static ArrayList<Integer> favoriteSongs = new ArrayList<Integer>();
 
   // "main" makes this class a java app that can be executed
   public static void main(final String[] args) {
@@ -85,6 +55,7 @@ public class SpotifyLikeAppExampleCode {
     System.out.println("[H]ome");
     System.out.println("[S]earch by title");
     System.out.println("[L]ibrary");
+    System.out.println("[F]avorites");
     System.out.println("[Q]uit");
     System.out.println("");
     System.out.print("Enter q to Quit:");
@@ -122,6 +93,26 @@ public class SpotifyLikeAppExampleCode {
     play(library, index - 1);
   }
 
+  // Prints favorited songs and plays the user-selected song
+  public static void favorites(Song[] library){
+    if(favoriteSongs.isEmpty()){
+      System.out.println("You have no favorited songs");
+      return;
+    }
+
+    System.out.println("Favorited Songs: ");
+    for (int i = 0; i < favoriteSongs.size(); i++) {
+      System.out.println(i + 1 + ": " + library[favoriteSongs.get(i)].name() + " by " + library[favoriteSongs.get(i)].artist());
+    }
+
+    Scanner input = new Scanner(System.in);
+    System.out.println("Please select which song to play");
+    int index = input.nextInt();
+    play(library, favoriteSongs.get(index-1));
+
+  }
+
+
   /*
    * handles the user input for the app
    */
@@ -138,6 +129,10 @@ public class SpotifyLikeAppExampleCode {
       case "l":
         System.out.println("-->Library<--");
         library(library);
+        break;
+      case "f":
+        System.out.println("-->Favorites<--");
+        favorites(library);
         break;
       case "q":
         System.out.println("-->Quit<--");
@@ -180,7 +175,10 @@ public class SpotifyLikeAppExampleCode {
     
     // Adds song to Recently played list
     recentlyPlayed.add(library[i].name() + " by " + library[i].artist());
-
+    
+    String userInput = "";
+    
+    while (!userInput.equals("H")) {
     // Prints information of song when it starts playing
     System.out.println("---------------------");
     System.out.println("Currently Playing: ");
@@ -188,7 +186,35 @@ public class SpotifyLikeAppExampleCode {
     System.out.println("Artist name: " + library[i].artist());
     System.out.println("Genre: " + library[i].genre());
     System.out.println("Release Date: " + library[i].year());
+    System.out.println("Favorited: " + library[i].isFavortite());
     System.out.println("File path: " + library[i].fileName());
+    System.out.println("---------------------");
+    if(library[i].isFavortite()){
+      System.out.println("[Un]favorite");
+    } else{
+      System.out.println("[Fa]vorite");
+    }
+    System.out.println("[H]ome");
+    System.out.println("---------------------");
+
+    Scanner input = new Scanner(System.in);  
+    userInput = input.nextLine();
+
+    switch (userInput) {
+      case "Fa":
+        favoriteSongs.add(index);
+        library[i].setFavorite();
+        break;
+
+      case "Un":
+        favoriteSongs.remove(Integer.valueOf(index));
+        library[i].setFavorite();
+        break;
+
+      default:
+        break;
+    }
+  }
   }
 
   // read the audio library of music

@@ -7,6 +7,7 @@ public class Song {
   private String year;
   private String genre;
   private String fileName;
+  private Boolean isFavorite = false;
 
   // serializes attributes into a string
   public String toString() {
@@ -48,4 +49,15 @@ public class Song {
   public String fileName() {
     return this.fileName;
   }
+
+  public Boolean isFavortite() {
+    return this.isFavorite;
+  }
+  
+  // setters
+  public void setFavorite() {
+    this.isFavorite = !isFavorite;
+  }
+
+
 }
