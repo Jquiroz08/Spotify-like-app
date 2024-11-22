@@ -94,24 +94,24 @@ public class SpotifyLikeAppExampleCode {
   }
 
   // Prints favorited songs and plays the user-selected song
-  public static void favorites(Song[] library){
-    if(favoriteSongs.isEmpty()){
+  public static void favorites(Song[] library) {
+    if (favoriteSongs.isEmpty()) {
       System.out.println("You have no favorited songs");
       return;
     }
 
     System.out.println("Favorited Songs: ");
     for (int i = 0; i < favoriteSongs.size(); i++) {
-      System.out.println(i + 1 + ": " + library[favoriteSongs.get(i)].name() + " by " + library[favoriteSongs.get(i)].artist());
+      System.out.println(
+          i + 1 + ": " + library[favoriteSongs.get(i)].name() + " by " + library[favoriteSongs.get(i)].artist());
     }
 
     Scanner input = new Scanner(System.in);
     System.out.println("Please select which song to play");
     int index = input.nextInt();
-    play(library, favoriteSongs.get(index-1));
+    play(library, favoriteSongs.get(index - 1));
 
   }
-
 
   /*
    * handles the user input for the app
@@ -172,59 +172,90 @@ public class SpotifyLikeAppExampleCode {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    
+
     // Adds song to Recently played list
     recentlyPlayed.add(library[i].name() + " by " + library[i].artist());
-    
+
     String userInput = "";
-    
+
+    Boolean isPaused = false;
+
+    long songPosition = 0L;
+
     while (!userInput.equals("B")) {
-    // Prints information of song when it starts playing
-    System.out.println("---------------------");
-    System.out.println("Currently Playing: ");
-    System.out.println("Song name: " + library[i].name());
-    System.out.println("Artist name: " + library[i].artist());
-    System.out.println("Genre: " + library[i].genre());
-    System.out.println("Release Date: " + library[i].year());
-    System.out.println("Favorited: " + library[i].isFavortite());
-    System.out.println("File path: " + library[i].fileName());
-    System.out.println("---------------------");
-    if(library[i].isFavortite()){
-      System.out.println("[Un]favorite");
-    } else{
-      System.out.println("[Fa]vorite");
+      // Prints information of song when it starts playing
+      System.out.println("---------------------");
+      System.out.println("Currently Playing: ");
+      System.out.println("Song name: " + library[i].name());
+      System.out.println("Artist name: " + library[i].artist());
+      System.out.println("Genre: " + library[i].genre());
+      System.out.println("Release Date: " + library[i].year());
+      System.out.println("Favorited: " + library[i].isFavortite());
+      System.out.println("File path: " + library[i].fileName());
+      System.out.println("---------------------");
+      if (library[i].isFavortite()) {
+        System.out.println("[Un]favorite");
+      } else {
+        System.out.println("[Fa]vorite");
+      }
+      System.out.println("[S]top");
+      if (isPaused) {
+        System.out.println("[P]lay");
+      } else {
+        System.out.println("[Pa]use");
+      }
+      System.out.println("[Fo]rward 5 Seconds");
+      System.out.println("[R]ewind 5 Seconds");
+      System.out.println("[B]ack");
+      System.out.println("---------------------");
+
+      Scanner input = new Scanner(System.in);
+      userInput = input.nextLine();
+
+      switch (userInput) {
+        case "Fa":
+          favoriteSongs.add(index);
+          library[i].setFavorite();
+          break;
+
+        case "Un":
+          favoriteSongs.remove(Integer.valueOf(index));
+          library[i].setFavorite();
+          break;
+
+        case "S":
+          audioClip.stop();
+          System.out.println("Paused at: " + audioClip.getMicrosecondPosition());
+          audioClip.setMicrosecondPosition(0);
+          audioClip.start();
+          System.out.println("Started at: " + audioClip.getMicrosecondPosition());
+          break;
+
+        case "P":
+          isPaused = !isPaused;
+          audioClip.setMicrosecondPosition(songPosition);
+          audioClip.start();
+          break;
+
+        case "Pa":
+          isPaused = !isPaused;
+          audioClip.stop();
+          songPosition = audioClip.getMicrosecondPosition();
+          break;
+
+        case "Fo":
+          audioClip.setMicrosecondPosition(audioClip.getMicrosecondPosition() + 5000000);
+          break;
+
+        case "R":
+          audioClip.setMicrosecondPosition(audioClip.getMicrosecondPosition() - 5000000);
+          break;
+
+        default:
+          break;
+      }
     }
-    System.out.println("[Fo]ward 5 Seconds");
-    System.out.println("[R]ewind 5 Seconds");
-    System.out.println("[B]ack");
-    System.out.println("---------------------");
-
-    Scanner input = new Scanner(System.in);  
-    userInput = input.nextLine();
-
-    switch (userInput) {
-      case "Fa":
-        favoriteSongs.add(index);
-        library[i].setFavorite();
-        break;
-
-      case "Un":
-        favoriteSongs.remove(Integer.valueOf(index));
-        library[i].setFavorite();
-        break;
-       
-      case "Fo":
-        audioClip.setMicrosecondPosition(audioClip.getMicrosecondPosition() + 5000000);
-        break;
-
-      case "R":
-        audioClip.setMicrosecondPosition(audioClip.getMicrosecondPosition() - 5000000);
-        break;
-        
-      default:
-        break;
-    }
-  }
+    audioClip.close();
   }
 
   // read the audio library of music
