@@ -231,10 +231,8 @@ public class SpotifyLikeAppExampleCode {
         // Restarts a song from the beginning
         case "S":
           audioClip.stop();
-          System.out.println("Paused at: " + audioClip.getMicrosecondPosition());
           audioClip.setMicrosecondPosition(0);
           audioClip.start();
-          System.out.println("Started at: " + audioClip.getMicrosecondPosition());
           break;
         // Resumes the song
         case "P":
