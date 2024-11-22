@@ -178,8 +178,10 @@ public class SpotifyLikeAppExampleCode {
 
     String userInput = "";
 
+    // Boolean to tell if song is paused or not
     Boolean isPaused = false;
 
+    // Long to store song postion when audio stops
     long songPosition = 0L;
 
     while (!userInput.equals("B")) {
@@ -192,6 +194,8 @@ public class SpotifyLikeAppExampleCode {
       System.out.println("Release Date: " + library[i].year());
       System.out.println("Favorited: " + library[i].isFavortite());
       System.out.println("File path: " + library[i].fileName());
+
+      // Prints menu for song player
       System.out.println("---------------------");
       if (library[i].isFavortite()) {
         System.out.println("[Un]favorite");
@@ -209,20 +213,22 @@ public class SpotifyLikeAppExampleCode {
       System.out.println("[B]ack");
       System.out.println("---------------------");
 
+      // User input for song player selection
       Scanner input = new Scanner(System.in);
       userInput = input.nextLine();
 
       switch (userInput) {
+        // Favorites a song
         case "Fa":
           favoriteSongs.add(index);
           library[i].setFavorite();
           break;
-
+        // Unfavorites a song
         case "Un":
           favoriteSongs.remove(Integer.valueOf(index));
           library[i].setFavorite();
           break;
-
+        // Restarts a song from the beginning
         case "S":
           audioClip.stop();
           System.out.println("Paused at: " + audioClip.getMicrosecondPosition());
@@ -230,23 +236,23 @@ public class SpotifyLikeAppExampleCode {
           audioClip.start();
           System.out.println("Started at: " + audioClip.getMicrosecondPosition());
           break;
-
+        // Resumes the song
         case "P":
           isPaused = !isPaused;
           audioClip.setMicrosecondPosition(songPosition);
           audioClip.start();
           break;
-
+        // Pauses the song and stores time position
         case "Pa":
           isPaused = !isPaused;
           audioClip.stop();
           songPosition = audioClip.getMicrosecondPosition();
           break;
-
+        // Fastfowards 5 seconds
         case "Fo":
           audioClip.setMicrosecondPosition(audioClip.getMicrosecondPosition() + 5000000);
           break;
-
+        // Rewinds 5 seconds
         case "R":
           audioClip.setMicrosecondPosition(audioClip.getMicrosecondPosition() - 5000000);
           break;
